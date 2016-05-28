@@ -21,15 +21,15 @@ module Guard
         command << "2> #{@stderr}" if @stderr
         command << "1> #{@stdout}" if @stdout
 
-        self.pid = Process.spawn(command.join(' '))
+        self.pid = ::Process.spawn(command.join(' '))
       end
 
       def kill
         UI.info '[Guard::Yard] Stopping YARD Documentation Server.'
         begin
           if pid
-            Process.kill('QUIT', pid)
-            Process.wait2(pid)
+            ::Process.kill('QUIT', pid)
+            ::Process.wait2(pid)
           end
         rescue Errno::ESRCH, Errno::ECHILD
           # Process is already dead.
